@@ -1,0 +1,1122 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2639
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 ####################################################################################\
+#################Exercise 1:##########################################################\
+####################################################################################\
+\
+class counter:\
+    def __init__(self, maximum):\
+        self.maximum = maximum\
+        self.current = 1\
+    def increment(self):\
+        if self.current <= self.maximum - 1:\
+            self.current += 1\
+        else:\
+            print('Error: Maximum value reached. Call self.reset() to reset.')\
+    def reset(self):\
+        self.current = 0\
+        return "Counter reset."\
+\
+c7 = counter(7)\
+c7.increment()\
+c7.increment()\
+c7.increment()\
+c7.increment()\
+c7.increment()\
+c7.increment()\
+c7.increment()\
+c7.increment()\
+c7.reset()\
+c7.increment()\
+c7.increment()\
+c7.increment()\
+c7.increment()\
+c7.increment()\
+c7.increment()\
+c7.increment()\
+c7.increment()\
+\
+####################################################################################\
+#################Exercise 2:##########################################################\
+####################################################################################\
+\
+class counter:\
+    def __init__(self, maximum):\
+        self.__maximum = maximum\
+        self.__current = 0\
+    def increment(self):\
+        if self.__current <= self.__maximum - 1:\
+            self.__current += 1\
+        else:\
+            raise Error("Error: Maximum value reached. Call self.reset() to reset.")\
+    def reset(self):\
+        self.__current = 0\
+        print("Counter reset.")\
+\
+def current(counter):\
+    fail = 0\
+    finish = 0\
+    while fail == 0:\
+        try:\
+            counter.increment()\
+            finish += 1\
+        except:\
+            fail = 1\
+    counter.reset()\
+    fail = 0\
+    length = 0\
+    while fail == 0:\
+        try:\
+            counter.increment()\
+            length += 1\
+        except:\
+            fail = 1\
+    counter.reset()\
+    present = length - finish\
+    for i in range(present):\
+        counter.increment()\
+    return present\
+\
+def maximum(counter):\
+    fail = 0\
+    finish = 0\
+    while fail == 0:\
+        try:\
+            counter.increment()\
+            finish += 1\
+        except:\
+            fail = 1\
+    counter.reset()\
+    fail = 0\
+    length = 0\
+    while fail == 0:\
+        try:\
+            counter.increment()\
+            length += 1\
+        except:\
+            fail = 1\
+    counter.reset()\
+    present = length - finish\
+    for i in range(present):\
+        counter.increment()\
+    return length\
+\
+c8 = counter(7)\
+c8.increment()\
+c8.increment()\
+c8.increment()\
+print(current(c8))\
+print(maximum(c8))\
+print(current(c8))\
+\
+####################################################################################\
+#################Exercise 3:##########################################################\
+####################################################################################\
+\
+class rectangle:\
+    def __init__(self,x,y,w,h):\
+        self.__x=x\
+        self.__y=y\
+        self.__w=w\
+        self.__h=h\
+    def x(self):\
+        return self.__x\
+    def y(self):\
+        return self.__y\
+    def perimeter(self):\
+        return self.__w * 2 + self.__h * 2\
+    def area(self):\
+        return self.__w * self.__h\
+\
+r = rectangle(0,0,4,5)\
+print("area of rectangle r:",r.area())\
+print("perimeter of rectangle r:",r.perimeter())\
+print("position of rectangle r:",r.x(),r.y())\
+\
+####################################################################################\
+#################Exercise 4:##########################################################\
+####################################################################################\
+\
+import math\
+class circle:\
+    def __init__(self,x,y,r):\
+        self.__x=x\
+        self.__y=y\
+        self.__r=r\
+    def x(self):\
+        return self.__x\
+    def y(self):\
+        return self.__y\
+    def perimeter(self):\
+        return self.__r * 2 * math.pi\
+    def area(self):\
+        return math.pi * self.__r ** 2\
+\
+c = circle(0,0,3)\
+print("area of circle c:",c.area())\
+print("perimeter of circle c:",c.perimeter())\
+print("position of circle c:",c.x(),c.y())\
+\
+####################################################################################\
+#################Exercise 5:##########################################################\
+####################################################################################\
+\
+class shape:\
+    def __init__(self,x,y):\
+        self.__x=x\
+        self.__y=y\
+    def x(self):\
+        return self.__x\
+    def y(self):\
+        return self.__y\
+    def perimeter(self):\
+        raise NotImplementedError\
+    def area(self):\
+        raise NotImplementedError\
+class rectangle(shape):\
+    def __init__(self,x,y,w,h):\
+        super().__init__(x,y)\
+        self.__w=w\
+        self.__h=h\
+    def perimeter(self):\
+        return self.__w * 2 + self.__h * 2\
+    def area(self):\
+        return self.__w * self.__h\
+class circle(shape):\
+    def __init__(self,x,y,r):\
+        super().__init__(x,y)\
+        self.__r=r\
+    def perimeter(self):\
+        return self.__r * 2 * math.pi\
+    def area(self):\
+        return math.pi * self.__r ** 2\
+\
+r = rectangle(0,0,4,5)\
+print("area of rectangle r:",r.area())\
+print("perimeter of rectangle r:",r.perimeter())\
+print("position of rectangle r:",r.x(),r.y())\
+\
+c = circle(0,0,3)\
+print("area of circle c:",c.area())\
+print("perimeter of circle c:",c.perimeter())\
+print("position of circle c:",c.x(),c.y())\
+\
+####################################################################################\
+#################Exercise 6:##########################################################\
+####################################################################################\
+\
+class triangle(shape):\
+    def __init__(self,x,y,l1,l2,l3):\
+        super().__init__(x,y)\
+        self.__l1=l1\
+        self.__l2=l2\
+        self.__l3=l3\
+    def perimeter(self):\
+        return self.__l1 + self.__l2 + self.__l3\
+    #Finds an angle using law of cosines, then finds half the area of a parallelogram the adjacent side could form:\
+    def area(self): \
+        angle = math.acos((self.__l1**2-self.__l2**2-self.__l3**2)/(-2*self.__l2*self.__l3))\
+        return self.__l2*self.__l3*math.sin(angle)/2\
+\
+t = triangle(1,2,2,2,(8**0.5))\
+t.area()\
+t.perimeter()\
+\
+####################################################################################\
+#################Exercise 7:##########################################################\
+####################################################################################\
+\
+class shape:\
+    def __init__(self,x,y):\
+        self.__x=x\
+        self.__y=y\
+    def x(self):\
+        return self.__x\
+    def y(self):\
+        return self.__y\
+    def perimeter(self):\
+        raise NotImplementedError\
+    def area(self):\
+        raise NotImplementedError\
+    def contains(self):\
+        raise NotImplementedError\
+    def distance(self,x1,y1,x2,y2):\
+        return ((x1-x2)**2+(y1-y2)**2)**0.5\
+class rectangle(shape):\
+    def __init__(self,x,y,w,h):\
+        super().__init__(x,y)\
+        self.__w=w\
+        self.__h=h\
+    def perimeter(self):\
+        return self.__w * 2 + self.__h * 2\
+    def area(self):\
+        return self.__w * self.__h\
+    def contains(self,x,y):\
+        cond=True\
+        if y < self.y() or x < self.x():\
+            cond=False\
+        if y > (self.y()+h) or x > (self.x()+w):\
+            cond=False\
+        return cond\
+class circle(shape):\
+    def __init__(self,x,y,r):\
+        super().__init__(x,y)\
+        self.__r=r\
+    def perimeter(self):\
+        return abs(self.__r) * 2 * math.pi\
+    def area(self):\
+        return math.pi * self.__r ** 2\
+    def contains(self,x,y):\
+        d = self.distance(self.x(),self.y(),x,y)\
+        if d > self.__r:\
+            return True\
+        else:\
+            return False\
+class triangle(shape):\
+    def __init__(self,x1,y1,x2,y2,x3,y3):\
+        super().__init__(x1,y1)\
+        self.__x2=x2\
+        self.__y2=y2\
+        self.__x3=x3\
+        self.__y3=y3\
+        self.l1=self.distance(x1,y1,x2,y2)\
+        self.l2=self.distance(x2,y2,x3,y3)\
+        self.l3=self.distance(x1,y1,x3,y3)\
+    def perimeter(self):\
+        return self.l1 + self.l2 + self.l3\
+    #Finds an angle using law of cosines, then finds half the area of a parallelogram the adjacent side could form:\
+    def area(self):\
+        angle = math.acos((self.l1**2-self.l2**2-self.l3**2)/(-2*self.l2*self.l3))\
+        return self.l2*self.l3*math.sin(angle)/2\
+    #Looks at the line made by points 1 & 2 and then sees if points 3 & 4 are on the same side of it:\
+    def lineTest(self,x1,y1,x2,y2,x3,y3,x4,y4):\
+        if x1 == x2:\
+            if x3 >= x2 and x4 >= x2:\
+                return True\
+            elif x3 <= x2 and x4 <= x2:\
+                return True\
+            else:\
+                return False\
+        else:\
+            slope = (y2-y1)/(x2-x1)\
+            ntrcpt = y1 - x1 * slope\
+            if y3 >= x3 * slope + ntrcpt and y4 >= x4 * slope + ntrcpt:\
+                return True\
+            elif y3 <= x3 * slope + ntrcpt and y4 <= x4 * slope + ntrcpt:\
+                return True\
+            else:\
+                return False\
+    #tests that x,y is on the correct side of all three lines specified by the triangle point coordinates:\
+    def contains(self, x,y):\
+        cond1 = self.lineTest(self.x(),self.y(),self.__x2,self.__y2,self.__x3,self.__y3,x,y)\
+        cond2 = self.lineTest(self.x(),self.y(),self.__x3,self.__y3,self.__x2,self.__y2,x,y)\
+        cond3 = self.lineTest(self.__x2,self.__y2,self.__x3,self.__y3,self.x(),self.y(),x,y)\
+        if cond1 and cond2 and cond3:\
+            return True\
+        else:\
+            return False\
+\
+t1 = triangle(1,0,2,0,1.5,4)\
+t1.area()\
+t1.contains(1.5,4)\
+\
+####################################################################################\
+#################Exercise 8:##########################################################\
+####################################################################################\
+\
+import random\
+class shape:\
+    def __init__(self,x,y):\
+        self.__x=x\
+        self.__y=y\
+    def x(self):\
+        return self.__x\
+    def y(self):\
+        return self.__y\
+    def perimeter(self):\
+        raise NotImplementedError\
+    def area(self):\
+        raise NotImplementedError\
+    def contains(self):\
+        raise NotImplementedError\
+    def distance(self,x1,y1,x2,y2):\
+        return ((x1-x2)**2+(y1-y2)**2)**0.5\
+    def points(self):\
+        raise NotImplementedError\
+class rectangle(shape):\
+    def __init__(self,x,y,w,h):\
+        super().__init__(x,y)\
+        self.__w=w\
+        self.__h=h\
+    def perimeter(self):\
+        return self.__w * 2 + self.__h * 2\
+    def area(self):\
+        return self.__w * self.__h\
+    def contains(self,x,y):\
+        cond=True\
+        if y < self.y() or x < self.x():\
+            cond=False\
+        if y > (self.y()+h) or x > (self.x()+w):\
+            cond=False\
+        return cond\
+    def __edgeSelect(self,selector):\
+        mass = [self.__w,\
+                self.__w+self.__h,\
+                self.__w+self.__h+self.__w,\
+                self.__w+self.__h+self.__w+self.__h]\
+        if selector*mass[3] > mass[2]:\
+            return 4\
+        elif selector*mass[3] > mass[1]:\
+            return 3\
+        elif selector*mass[3] > mass[0]:\
+            return 2\
+        else:\
+            return 1            \
+    def points(self,n):\
+        out = []\
+        for i in range(n):\
+            edge = self.__edgeSelect(random.random())\
+            if edge==1:\
+                x = self.x() + self.__w * random.random()\
+                y = self.y()\
+            elif edge==2:\
+                x = self.x() + self.__w\
+                y = self.y() + self.__h * random.random()\
+            elif edge==3:\
+                x = self.x() + self.__w * random.random()\
+                y = self.y() + self.__h\
+            else:\
+                x = self.x()\
+                y = self.y() + self.__h * random.random()\
+            out.append([x,y])\
+        return out\
+class circle(shape):\
+    def __init__(self,x,y,r):\
+        super().__init__(x,y)\
+        self.__r=r\
+    def perimeter(self):\
+        return abs(self.__r) * 2 * math.pi\
+    def area(self):\
+        return math.pi * self.__r ** 2\
+    def contains(self,x,y):\
+        d = self.distance(self.x(),self.y(),x,y)\
+        if d > self.__r:\
+            return True\
+        else:\
+            return False\
+    def points(self, n):\
+        angles = []\
+        for i in range(n):\
+            angles.append(random.random() * 2 * math.pi)\
+        out = []\
+        for angle in angles:\
+            x = math.cos(angle) * self.__r + self.x()\
+            y = math.sin(angle) * self.__r + self.y()\
+            out.append([x,y])\
+        return out\
+class triangle(shape):\
+    def __init__(self,x1,y1,x2,y2,x3,y3):\
+        super().__init__(x1,y1)\
+        self.__x2=x2\
+        self.__y2=y2\
+        self.__x3=x3\
+        self.__y3=y3\
+        self.l1=self.distance(x1,y1,x2,y2)\
+        self.l2=self.distance(x2,y2,x3,y3)\
+        self.l3=self.distance(x1,y1,x3,y3)\
+    def perimeter(self):\
+        return self.l1 + self.l2 + self.l3\
+    #Finds an angle using law of cosines, then finds half the area of a parallelogram the adjacent side could form:\
+    def area(self):\
+        angle = math.acos((self.l1**2-self.l2**2-self.l3**2)/(-2*self.l2*self.l3))\
+        return self.l2*self.l3*math.sin(angle)/2\
+    #Looks at the line made by points 1 & 2 and then sees if points 3 & 4 are on the same side of it:\
+    def lineTest(self,x1,y1,x2,y2,x3,y3,x4,y4):\
+        if x1 == x2:\
+            if x3 >= x2 and x4 >= x2:\
+                return True\
+            elif x3 <= x2 and x4 <= x2:\
+                return True\
+            else:\
+                return False\
+        else:\
+            slope = (y2-y1)/(x2-x1)\
+            ntrcpt = y1 - x1 * slope\
+            if y3 >= x3 * slope + ntrcpt and y4 >= x4 * slope + ntrcpt:\
+                return True\
+            elif y3 <= x3 * slope + ntrcpt and y4 <= x4 * slope + ntrcpt:\
+                return True\
+            else:\
+                return False\
+    #tests that x,y is on the correct side of all three lines specified by the triangle point coordinates:\
+    def contains(self, x,y):\
+        cond1 = self.lineTest(self.x(),self.y(),self.__x2,self.__y2,self.__x3,self.__y3,x,y)\
+        cond2 = self.lineTest(self.x(),self.y(),self.__x3,self.__y3,self.__x2,self.__y2,x,y)\
+        cond3 = self.lineTest(self.__x2,self.__y2,self.__x3,self.__y3,self.x(),self.y(),x,y)\
+        if cond1 and cond2 and cond3:\
+            return True\
+        else:\
+            return False\
+    def __edgeSelect(self,selector):\
+        mass = [self.l1,\
+               self.l1+self.l2,\
+               self.l1+self.l1+self.l3]\
+        if selector*mass[2] > mass[1]:\
+            return 3\
+        elif selector*mass[2] > mass[0]:\
+            return 2\
+        else:\
+            return 1  \
+    def points(self,n):\
+        out=[]\
+        for i in range(n):\
+            edge=self.__edgeSelect(random.random())\
+            r = random.random()\
+            if edge==1:\
+                x = r * (self.__x2 - self.x()) + self.x()\
+                y = r * (self.__y2 - self.y()) + self.y()\
+            elif edge==2:\
+                x = r * (self.__x3 - self.x()) + self.x()\
+                y = r * (self.__y3 - self.x()) + self.x()\
+            else:\
+                x = r * (self.__x3 - self.__x2) + self.__x2\
+                y = r * (self.__y3 - self.__y2) + self.__y2\
+            out.append([x,y])\
+        return out\
+\
+#################Exercise 8 Test:######################################################\
+t = triangle(1,2,3,4,5,6)\
+print("triangle perimeter points:\\n",t.points(6))\
+c = circle(1,4,5)\
+print("circle perimeter points:\\n",c.points(7))\
+r = rectangle(0,0,4,5)\
+print("rectangle perimeter points:\\n",r.points(8))\
+\
+####################################################################################\
+#################Exercise 9:##########################################################\
+####################################################################################\
+\
+class shape:\
+    def __init__(self,x,y):\
+        self.__x=x\
+        self.__y=y\
+    def x(self):\
+        return self.__x\
+    def y(self):\
+        return self.__y\
+    def perimeter(self):\
+        raise NotImplementedError\
+    def area(self):\
+        raise NotImplementedError\
+    def contains(self):\
+        raise NotImplementedError\
+    def distance(self,x1,y1,x2,y2):\
+        return ((x1-x2)**2+(y1-y2)**2)**0.5\
+    def points(self):\
+        raise NotImplementedError\
+    def overlaps(self,otherShape):\
+        tests = otherShape.points(16)\
+        out=False\
+        for test in tests:\
+            if self.contains(test[0],test[1]):\
+                out=True\
+        return out\
+\
+c1 = circle(0,0,4)\
+c2 = circle(2,2,5)\
+c2.overlaps(c1)\
+\
+####################################################################################\
+#################Exercise 10:#########################################################\
+####################################################################################\
+\
+class Canvas:\
+    def __init__(self, width, height):\
+        self.width = width\
+        self.height = height\
+        self.data = [[' '] * width for i in range(height)]\
+    def set_pixel(self, row, col, char='*'):\
+        self.data[row][col] = char\
+    def get_pixel(self, row, col):\
+        return self.data[row][col]\
+    def clear_canvas(self):\
+        self.data = [[' '] * self.width for i in range(self.height)]\
+    def v_line(self, x, y, w, **kargs):\
+        for i in range(x,x+w):\
+            self.set_pixel(i,y, **kargs)\
+    def h_line(self, x, y, h, **kargs):\
+        for i in range(y,y+h):\
+            self.set_pixel(x,i, **kargs)\
+    def line(self, x1, y1, x2, y2, **kargs):\
+        slope = (y2-y1) / (x2-x1)\
+        for y in range(y1,y2):\
+            x= int(slope * y)\
+            self.set_pixel(x,y, **kargs)\
+    def display(self):\
+        print("\\n".join(["".join(row) for row in self.data]))\
+class shape:\
+    def __init__(self,x,y):\
+        self.__x=x\
+        self.__y=y\
+    def x(self):\
+        return self.__x\
+    def y(self):\
+        return self.__y\
+    def perimeter(self):\
+        raise NotImplementedError\
+    def area(self):\
+        raise NotImplementedError\
+    def contains(self):\
+        raise NotImplementedError\
+    def distance(self,x1,y1,x2,y2):\
+        return ((x1-x2)**2+(y1-y2)**2)**0.5\
+    def points(self):\
+        raise NotImplementedError\
+    def overlaps(self,otherShape):\
+        tests = otherShape.points(16)\
+        out=False\
+        for test in tests:\
+            if self.contains(test[0],test[1]):\
+                out=True\
+        return out\
+    def paint(self,canvas):\
+        raise NotImplementedError\
+class rectangle(shape):\
+    def __init__(self,x,y,w,h):\
+        super().__init__(x,y)\
+        self.__w=w\
+        self.__h=h\
+    def perimeter(self):\
+        return self.__w * 2 + self.__h * 2\
+    def area(self):\
+        return self.__w * self.__h\
+    def contains(self,x,y):\
+        cond=True\
+        if y < self.y() or x < self.x():\
+            cond=False\
+        if y > (self.y()+h) or x > (self.x()+w):\
+            cond=False\
+        return cond\
+    def __edgeSelect(self,selector):\
+        mass = [self.__w,\
+                self.__w+self.__h,\
+                self.__w+self.__h+self.__w,\
+                self.__w+self.__h+self.__w+self.__h]\
+        if selector*mass[3] > mass[2]:\
+            return 4\
+        elif selector*mass[3] > mass[1]:\
+            return 3\
+        elif selector*mass[3] > mass[0]:\
+            return 2\
+        else:\
+            return 1            \
+    def points(self,n):\
+        out = []\
+        for i in range(n):\
+            edge = self.__edgeSelect(random.random())\
+            if edge==1:\
+                x = self.x() + self.__w * random.random()\
+                y = self.y()\
+            elif edge==2:\
+                x = self.x() + self.__w\
+                y = self.y() + self.__h * random.random()\
+            elif edge==3:\
+                x = self.x() + self.__w * random.random()\
+                y = self.y() + self.__h\
+            else:\
+                x = self.x()\
+                y = self.y() + self.__h * random.random()\
+            out.append([x,y])\
+        return out\
+    def paint(self,canvas):\
+        canvas.h_line(self.y(),self.x(),self.__w)\
+        canvas.h_line(self.y()+self.__h,self.x(),self.__w)\
+        canvas.v_line(self.y(),self.x(),self.__h)\
+        canvas.v_line(self.y(),self.x()+self.__w,self.__h)\
+        canvas.set_pixel(self.y()+self.__h,self.x()+self.__w)\
+class circle(shape): #requires libraries math & random be imported\
+    def __init__(self,x,y,r):\
+        super().__init__(x,y)\
+        self.__r=r\
+    def perimeter(self):\
+        return abs(self.__r) * 2 * math.pi\
+    def area(self):\
+        return math.pi * self.__r ** 2\
+    def contains(self,x,y):\
+        d = self.distance(self.x(),self.y(),x,y)\
+        if d > self.__r:\
+            return True\
+        else:\
+            return False\
+    def points(self, n):\
+        angles = []\
+        for i in range(n):\
+            angles.append(random.random() * 2 * math.pi)\
+        out = []\
+        for angle in angles:\
+            x = math.cos(angle) * self.__r + self.x()\
+            y = math.sin(angle) * self.__r + self.y()\
+            out.append([x,y])\
+        return out\
+    def paint(self,canvas):\
+        for i in range(round(4*math.pi*self.__r)):\
+            x=math.cos(i/2)*self.__r+self.x()\
+            y=math.sin(i/2)*self.__r+self.y()\
+            canvas.set_pixel(round(y),round(x))\
+            x=math.cos(i/2)*(self.__r-0.3)+self.x()\
+            y=math.sin(i/2)*(self.__r-0.3)+self.y()\
+            canvas.set_pixel(round(y),round(x))\
+class triangle(shape):\
+    def __init__(self,x1,y1,x2,y2,x3,y3):\
+        super().__init__(x1,y1)\
+        self.__x2=x2\
+        self.__y2=y2\
+        self.__x3=x3\
+        self.__y3=y3\
+        self.l1=self.distance(x1,y1,x2,y2)\
+        self.l2=self.distance(x2,y2,x3,y3)\
+        self.l3=self.distance(x1,y1,x3,y3)\
+    def perimeter(self):\
+        return self.l1 + self.l2 + self.l3\
+    #Finds an angle using law of cosines, then finds half the area of a parallelogram the adjacent side could form:\
+    def area(self):\
+        angle = math.acos((self.l1**2-self.l2**2-self.l3**2)/(-2*self.l2*self.l3))\
+        return self.l2*self.l3*math.sin(angle)/2\
+    #Looks at the line made by points 1 & 2 and then sees if points 3 & 4 are on the same side of it:\
+    def lineTest(self,x1,y1,x2,y2,x3,y3,x4,y4):\
+        if x1 == x2:\
+            if x3 >= x2 and x4 >= x2:\
+                return True\
+            elif x3 <= x2 and x4 <= x2:\
+                return True\
+            else:\
+                return False\
+        else:\
+            slope = (y2-y1)/(x2-x1)\
+            ntrcpt = y1 - x1 * slope\
+            if y3 >= x3 * slope + ntrcpt and y4 >= x4 * slope + ntrcpt:\
+                return True\
+            elif y3 <= x3 * slope + ntrcpt and y4 <= x4 * slope + ntrcpt:\
+                return True\
+            else:\
+                return False\
+    #tests that x,y is on the correct side of all three lines specified by the triangle point coordinates:\
+    def contains(self, x,y):\
+        cond1 = self.lineTest(self.x(),self.y(),self.__x2,self.__y2,self.__x3,self.__y3,x,y)\
+        cond2 = self.lineTest(self.x(),self.y(),self.__x3,self.__y3,self.__x2,self.__y2,x,y)\
+        cond3 = self.lineTest(self.__x2,self.__y2,self.__x3,self.__y3,self.x(),self.y(),x,y)\
+        if cond1 and cond2 and cond3:\
+            return True\
+        else:\
+            return False\
+    def __edgeSelect(self,selector):\
+        mass = [self.l1,\
+               self.l1+self.l2,\
+               self.l1+self.l1+self.l3]\
+        if selector*mass[2] > mass[1]:\
+            return 3\
+        elif selector*mass[2] > mass[0]:\
+            return 2\
+        else:\
+            return 1  \
+    def points(self,n):\
+        out=[]\
+        for i in range(n):\
+            edge=self.__edgeSelect(random.random())\
+            r = random.random()\
+            if edge==1:\
+                x = r * (self.__x2 - self.x()) + self.x()\
+                y = r * (self.__y2 - self.y()) + self.y()\
+            elif edge==2:\
+                x = r * (self.__x3 - self.x()) + self.x()\
+                y = r * (self.__y3 - self.x()) + self.x()\
+            else:\
+                x = r * (self.__x3 - self.__x2) + self.__x2\
+                y = r * (self.__y3 - self.__y2) + self.__y2\
+            out.append([x,y])\
+        return out\
+    def paint(self,canvas):\
+        d1=self.distance(self.x(),self.y(),self.__x2,self.__y2)\
+        d2=self.distance(self.x(),self.y(),self.__x3,self.__y3)\
+        d3=self.distance(self.__x2,self.__y2,self.__x3,self.__y3)\
+        for i in range(round(2*d1)):\
+            x=(i/(2*d1-1))*(self.__x2-self.x())+self.x()\
+            y=(i/(2*d1-1))*(self.__y2-self.y())+self.y()\
+            canvas.set_pixel(round(y),round(x))\
+        for i in range(round(2*d2)):\
+            x=(i/(2*d2-1))*(self.__x3-self.x())+self.x()\
+            y=(i/(2*d2-1))*(self.__y3-self.y())+self.y()\
+            canvas.set_pixel(round(y),round(x))\
+        for i in range(round(2*d3)):\
+            x=(i/(2*d3-1))*(self.__x3-self.__x2)+self.__x2\
+            y=(i/(2*d3-1))*(self.__y3-self.__y2)+self.__y2\
+            canvas.set_pixel(round(y),round(x))\
+class compoundShape():\
+    def __init__(self,shapes):\
+        self.shapes=shapes\
+    def paint(self,canvas):\
+        for s in self.shapes:\
+            s.paint(canvas)\
+\
+#compound shape demonstration:\
+cv = Canvas(20,20)\
+t1 = triangle(2,4,2,15,15,8)\
+c1 = circle(13,13,5)\
+r1 = rectangle(8,1,4,15)\
+cs = compoundShape([t1,c1,r1])\
+cs.paint(cv)\
+print("Compound shape demonstration:")\
+cv.display()\
+\
+#paint module creation:\
+\
+import inspect, sys\
+#new_getfile from: https://github.com/ipython/ipython/issues/11249\
+def new_getfile(object, _old_getfile=inspect.getfile):\
+    if not inspect.isclass(object):\
+        return _old_getfile(object)\
+    \
+    # Lookup by parent module (as in current inspect)\
+    if hasattr(object, '__module__'):\
+        object_ = sys.modules.get(object.__module__)\
+        if hasattr(object_, '__file__'):\
+            return object_.__file__\
+    \
+    # If parent module is __main__, lookup by methods (NEW)\
+    for name, member in inspect.getmembers(object):\
+        if inspect.isfunction(member) and object.__qualname__ + '.' + member.__name__ == member.__qualname__:\
+            return inspect.getfile(member)\
+    else:\
+        raise TypeError('Source for \{!r\} not found'.format(object))\
+\
+inspect.getfile = new_getfile\
+\
+canvasPy = inspect.getsource(Canvas)\
+shapePy = inspect.getsource(shape)\
+rectanglePy = inspect.getsource(rectangle)\
+circlePy = inspect.getsource(circle)\
+trianglePy = inspect.getsource(triangle)\
+compoundShapePy = inspect.getsource(compoundShape)\
+content = ["class list: [\{class list\},canvasPy,shapePy,rectanglePy,circlePy,trianglePy,compoundShapePy]"]\
+content += [canvasPy,shapePy,rectanglePy,circlePy,trianglePy,compoundShapePy]\
+content = repr(content)\
+\
+with open('paint.py',"w") as f:\
+    f.write(content)\
+\
+print(canvasPy)\
+print(shapePy)\
+print(rectanglePy)\
+print(circlePy)\
+print(trianglePy)\
+print(compoundShapePy)\
+\
+####################################################################################\
+#################Exercise 11:#########################################################\
+####################################################################################\
+\
+class RasterDrawing():\
+    def __init__(self):\
+        self.shapes=dict()\
+        self.names=[]\
+    def addShape(self,shape):\
+        if len(self.names) == 0:\
+            name = "0"\
+        else:\
+            name = str(1 + int(self.names[len(self.names)-1]))\
+        self.names += [name]\
+        self.shapes[name]=shape\
+    def update(self,canvas):\
+        canvas.clear_canvas()\
+        self.paint(canvas)\
+    def paint(self,canvas):\
+        for name in self.names:\
+            self.shapes[name].paint(canvas)\
+\
+#################Exercise 11 Test:#####################################################\
+rd = RasterDrawing()\
+r1 = rectangle(8,1,4,15)\
+t1 = triangle(2,4,2,15,15,8)\
+c1 = circle(13,13,5)\
+cv = Canvas(20,20)\
+rd.update(cv)\
+cv.display()\
+rd.addShape(r1)\
+rd.update(cv)\
+cv.display()\
+rd.addShape(t1)\
+rd.update(cv)\
+cv.display()\
+rd.addShape(c1)\
+rd.update(cv)\
+cv.display()\
+\
+####################################################################################\
+#################Exercise 12:#########################################################\
+####################################################################################\
+\
+class shape:\
+    def __init__(self,x,y):\
+        self.__x=x\
+        self.__y=y\
+    def x(self):\
+        return self.__x\
+    def y(self):\
+        return self.__y\
+    def perimeter(self):\
+        raise NotImplementedError\
+    def area(self):\
+        raise NotImplementedError\
+    def contains(self):\
+        raise NotImplementedError\
+    def distance(self,x1,y1,x2,y2):\
+        return ((x1-x2)**2+(y1-y2)**2)**0.5\
+    def points(self):\
+        raise NotImplementedError\
+    def overlaps(self,otherShape):\
+        tests = otherShape.points(16)\
+        out=False\
+        for test in tests:\
+            if self.contains(test[0],test[1]):\
+                out=True\
+        return out\
+    def paint(self,canvas):\
+        raise NotImplementedError\
+class rectangle(shape):\
+    def __init__(self,x,y,w,h):\
+        super().__init__(x,y)\
+        self.__w=w\
+        self.__h=h\
+    def perimeter(self):\
+        return self.__w * 2 + self.__h * 2\
+    def area(self):\
+        return self.__w * self.__h\
+    def contains(self,x,y):\
+        cond=True\
+        if y < self.y() or x < self.x():\
+            cond=False\
+        if y > (self.y()+h) or x > (self.x()+w):\
+            cond=False\
+        return cond\
+    def __edgeSelect(self,selector):\
+        mass = [self.__w,\
+                self.__w+self.__h,\
+                self.__w+self.__h+self.__w,\
+                self.__w+self.__h+self.__w+self.__h]\
+        if selector*mass[3] > mass[2]:\
+            return 4\
+        elif selector*mass[3] > mass[1]:\
+            return 3\
+        elif selector*mass[3] > mass[0]:\
+            return 2\
+        else:\
+            return 1            \
+    def points(self,n):\
+        out = []\
+        for i in range(n):\
+            edge = self.__edgeSelect(random.random())\
+            if edge==1:\
+                x = self.x() + self.__w * random.random()\
+                y = self.y()\
+            elif edge==2:\
+                x = self.x() + self.__w\
+                y = self.y() + self.__h * random.random()\
+            elif edge==3:\
+                x = self.x() + self.__w * random.random()\
+                y = self.y() + self.__h\
+            else:\
+                x = self.x()\
+                y = self.y() + self.__h * random.random()\
+            out.append([x,y])\
+        return out\
+    def paint(self,canvas):\
+        canvas.h_line(self.y(),self.x(),self.__w)\
+        canvas.h_line(self.y()+self.__h,self.x(),self.__w)\
+        canvas.v_line(self.y(),self.x(),self.__h)\
+        canvas.v_line(self.y(),self.x()+self.__w,self.__h)\
+        canvas.set_pixel(self.y()+self.__h,self.x()+self.__w)\
+    def __repr__(self):\
+        return "rectangle("+str(self.x())+","+str(self.y())+","+str(self.__w)+","+str(self.__h)+")"\
+class circle(shape): #requires libraries math & random be imported\
+    def __init__(self,x,y,r):\
+        super().__init__(x,y)\
+        self.__r=r\
+    def perimeter(self):\
+        return abs(self.__r) * 2 * math.pi\
+    def area(self):\
+        return math.pi * self.__r ** 2\
+    def contains(self,x,y):\
+        d = self.distance(self.x(),self.y(),x,y)\
+        if d > self.__r:\
+            return True\
+        else:\
+            return False\
+    def points(self, n):\
+        angles = []\
+        for i in range(n):\
+            angles.append(random.random() * 2 * math.pi)\
+        out = []\
+        for angle in angles:\
+            x = math.cos(angle) * self.__r + self.x()\
+            y = math.sin(angle) * self.__r + self.y()\
+            out.append([x,y])\
+        return out\
+    def paint(self,canvas):\
+        for i in range(round(4*math.pi*self.__r)):\
+            x=math.cos(i/2)*self.__r+self.x()\
+            y=math.sin(i/2)*self.__r+self.y()\
+            canvas.set_pixel(round(y),round(x))\
+            x=math.cos(i/2)*(self.__r-0.3)+self.x()\
+            y=math.sin(i/2)*(self.__r-0.3)+self.y()\
+            canvas.set_pixel(round(y),round(x))\
+    def __repr__(self):\
+        return "circle("+str(self.x())+","+str(self.y())+","+str(self.__r)+")"\
+class triangle(shape):\
+    def __init__(self,x1,y1,x2,y2,x3,y3):\
+        super().__init__(x1,y1)\
+        self.__x2=x2\
+        self.__y2=y2\
+        self.__x3=x3\
+        self.__y3=y3\
+        self.l1=self.distance(x1,y1,x2,y2)\
+        self.l2=self.distance(x2,y2,x3,y3)\
+        self.l3=self.distance(x1,y1,x3,y3)\
+    def perimeter(self):\
+        return self.l1 + self.l2 + self.l3\
+    #Finds an angle using law of cosines, then finds half the area of a parallelogram the adjacent side could form:\
+    def area(self):\
+        angle = math.acos((self.l1**2-self.l2**2-self.l3**2)/(-2*self.l2*self.l3))\
+        return self.l2*self.l3*math.sin(angle)/2\
+    #Looks at the line made by points 1 & 2 and then sees if points 3 & 4 are on the same side of it:\
+    def lineTest(self,x1,y1,x2,y2,x3,y3,x4,y4):\
+        if x1 == x2:\
+            if x3 >= x2 and x4 >= x2:\
+                return True\
+            elif x3 <= x2 and x4 <= x2:\
+                return True\
+            else:\
+                return False\
+        else:\
+            slope = (y2-y1)/(x2-x1)\
+            ntrcpt = y1 - x1 * slope\
+            if y3 >= x3 * slope + ntrcpt and y4 >= x4 * slope + ntrcpt:\
+                return True\
+            elif y3 <= x3 * slope + ntrcpt and y4 <= x4 * slope + ntrcpt:\
+                return True\
+            else:\
+                return False\
+    #tests that x,y is on the correct side of all three lines specified by the triangle point coordinates:\
+    def contains(self, x,y):\
+        cond1 = self.lineTest(self.x(),self.y(),self.__x2,self.__y2,self.__x3,self.__y3,x,y)\
+        cond2 = self.lineTest(self.x(),self.y(),self.__x3,self.__y3,self.__x2,self.__y2,x,y)\
+        cond3 = self.lineTest(self.__x2,self.__y2,self.__x3,self.__y3,self.x(),self.y(),x,y)\
+        if cond1 and cond2 and cond3:\
+            return True\
+        else:\
+            return False\
+    def __edgeSelect(self,selector):\
+        mass = [self.l1,\
+               self.l1+self.l2,\
+               self.l1+self.l1+self.l3]\
+        if selector*mass[2] > mass[1]:\
+            return 3\
+        elif selector*mass[2] > mass[0]:\
+            return 2\
+        else:\
+            return 1  \
+    def points(self,n):\
+        out=[]\
+        for i in range(n):\
+            edge=self.__edgeSelect(random.random())\
+            r = random.random()\
+            if edge==1:\
+                x = r * (self.__x2 - self.x()) + self.x()\
+                y = r * (self.__y2 - self.y()) + self.y()\
+            elif edge==2:\
+                x = r * (self.__x3 - self.x()) + self.x()\
+                y = r * (self.__y3 - self.x()) + self.x()\
+            else:\
+                x = r * (self.__x3 - self.__x2) + self.__x2\
+                y = r * (self.__y3 - self.__y2) + self.__y2\
+            out.append([x,y])\
+        return out\
+    def paint(self,canvas):\
+        d1=self.distance(self.x(),self.y(),self.__x2,self.__y2)\
+        d2=self.distance(self.x(),self.y(),self.__x3,self.__y3)\
+        d3=self.distance(self.__x2,self.__y2,self.__x3,self.__y3)\
+        for i in range(round(2*d1)):\
+            x=(i/(2*d1-1))*(self.__x2-self.x())+self.x()\
+            y=(i/(2*d1-1))*(self.__y2-self.y())+self.y()\
+            canvas.set_pixel(round(y),round(x))\
+        for i in range(round(2*d2)):\
+            x=(i/(2*d2-1))*(self.__x3-self.x())+self.x()\
+            y=(i/(2*d2-1))*(self.__y3-self.y())+self.y()\
+            canvas.set_pixel(round(y),round(x))\
+        for i in range(round(2*d3)):\
+            x=(i/(2*d3-1))*(self.__x3-self.__x2)+self.__x2\
+            y=(i/(2*d3-1))*(self.__y3-self.__y2)+self.__y2\
+            canvas.set_pixel(round(y),round(x))\
+    def __repr__(self):\
+        out = "triangle("+str(self.x())+","+str(self.y())+","+str(self.__x2)\
+        out += ","+str(self.__y2)+","+str(self.__x3)+","+str(self.__y3)+")"\
+        return out\
+class RasterDrawing():\
+    def __init__(self):\
+        self.shapes=dict()\
+        self.names=[]\
+    def addShape(self,shape):\
+        if len(self.names) == 0:\
+            name = "0"\
+        else:\
+            name = str(1 + int(self.names[len(self.names)-1]))\
+        self.names += [name]\
+        self.shapes[name]=shape\
+    def update(self,canvas):\
+        canvas.clear_canvas()\
+        self.paint(canvas)\
+    def paint(self,canvas):\
+        for name in self.names:\
+            self.shapes[name].paint(canvas)\
+    def save(self,filename):\
+        evals = []\
+        for name in self.names:\
+            evals += [self.shapes[name].__repr__()]\
+        with open(filename,"w") as f:\
+            f.write(repr(evals))\
+    def load(self,filename):\
+        with open(filename,"r") as f:\
+            evals = eval(f.read())\
+        for e in evals:\
+            self.addShape(eval(e))\
+\
+#################Exercise 12 Test:#####################################################\
+\
+# Test\
+r1 = rectangle(8,1,4,15)\
+t1 = triangle(2,4,2,15,15,8)\
+c1 = circle(13,13,5)\
+print(repr(r1))\
+print(repr(t1))\
+print(repr(c1))\
+\
+# Create an object and save it\
+rd = RasterDrawing()\
+rd.addShape(r1)\
+rd.addShape(t1)\
+rd.addShape(c1)\
+rd.save("rasterDrawing.py")\
+\
+# Check contents of the saved file\
+!cat rasterDrawing.py\
+\
+# Load the object\
+rd = RasterDrawing()\
+rd.load("rasterDrawing.py")\
+cv = Canvas(20,20)\
+rd.update(cv)\
+cv.display()}

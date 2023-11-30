@@ -1,0 +1,419 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2639
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 ####################################################################################\
+#################Exercise 1:##########################################################\
+####################################################################################\
+\
+# Skeleton\
+import random\
+def generate_uniform(N,x_min,x_max):\
+    out = []\
+    ### BEGIN SOLUTION\
+    span = x_max - x_min\
+    for i in range(N):\
+        out += [random.random() * span + x_min]\
+    ### END SOLUTION\
+    return out\
+#################Exercise 1 Test:######################################################\
+# Test your solution here\
+data=generate_uniform(1000,-10,10)\
+print ("Data Type:", type(data))\
+print ("Data Length:", len(data))\
+if len(data)>0: \
+    print ("Type of Data Contents:", type(data[0]))\
+    print ("Data Minimum:", min(data))\
+    print ("Data Maximum:", max(data))\
+\
+####################################################################################\
+#################Exercise 2a:#########################################################\
+####################################################################################\
+\
+# Skeleton\
+def mean(Data):\
+    m=0.\
+    \
+    ### BEGIN SOLUTION\
+    length = len(Data)\
+    for i in range(length):\
+        m += Data[i]\
+    m = m / length\
+    ### END SOLUTION\
+    \
+    return m\
+#################Exercise 2a Test:#####################################################\
+# Test your solution here\
+print ("Mean of Data:", mean(data))\
+\
+####################################################################################\
+#################Exercise 2b:#########################################################\
+####################################################################################\
+\
+# Skeleton\
+# Shouldn't it be a mean of squared differences rather than a mean of differences or a mean of absolute differences?\
+def variance(Data):\
+    m=0.\
+    \
+    ### BEGIN SOLUTION\
+    length = len(Data)\
+    for i in range(length):\
+        m += (Data[i] - mean(Data)) ** 2\
+    m = m / length\
+    ### END SOLUTION\
+    \
+    return m\
+#################Exercise 2b Test:#####################################################\
+# Test your solution here\
+print ("Variance of Data:", variance(data))\
+\
+####################################################################################\
+#################Exercise 3:##########################################################\
+####################################################################################\
+\
+# Solution\
+def histogram(x,n_bins=10,x_min=None,x_max=None):\
+    ### BEGIN SOLUTION\
+    if x_min == None:\
+        x_min = min(x)\
+    if x_max == None:\
+        x_max = max(x)\
+    span = x_max - x_min\
+    bin_size = span / n_bins\
+    hist = [0] * n_bins\
+    for j in range(len(x)):\
+        i = int((x[j] - x_min) / bin_size)\
+        if i >= n_bins:\
+            i = n_bins - 1\
+        hist[i] += 1\
+    bin_edges = [x_min]\
+    for i in range(n_bins):\
+        bin_edges += [(i+1)*bin_size+x_min]\
+    ### END SOLUTION\
+\
+    return hist,bin_edges\
+#################Exercise 3 Test:######################################################\
+# Test your solution here\
+h,b=histogram(data,100)\
+print(h)\
+\
+####################################################################################\
+#################Exercise 4:##########################################################\
+####################################################################################\
+\
+# Solution\
+def draw_histogram(x,n_bins,x_min=None,x_max=None,character="#",max_character_per_line=20):\
+    ### BEGIN SOLUTION\
+    o = ["["] * n_bins\
+    out = ""\
+    h,b=histogram(x,n_bins,x_min=None,x_max=None)\
+    M=max(h)\
+    numLen=0\
+    def L(i):\
+        return len(str(b[i]))\
+    for i in range(len(b)):\
+        if numLen < L(i):\
+            numLen = L(i)\
+    for i in range(n_bins):\
+        s1 = numLen - L(i)\
+        s2 = numLen - L(i+1)\
+        o[i] += " " * s1 + str(b[i]) + ","\
+        o[i] += " " * s2 + str(b[i + 1]) + "] : "\
+        o[i] += character * int(h[i] * max_character_per_line / M)\
+        out += o[i] + "\\n"\
+    hist = h\
+    bin_edges = b\
+    print(out)\
+    ### END SOLUTION\
+\
+    return hist,bin_edges\
+#################Exercise 4 Test:######################################################\
+# Test your solution here\
+h,b=draw_histogram(data,20)\
+\
+####################################################################################\
+#################Exercise 5:##########################################################\
+####################################################################################\
+\
+def where(mylist,myfunc):\
+    out= []\
+    \
+    ### BEGIN SOLUTION\
+    for i in range(len(mylist)):\
+        if myfunc(mylist[i]):\
+            out += [i]\
+    ### END SOLUTION\
+    \
+    return out\
+#################Exercise 5 Test:######################################################\
+# Test your solution here\
+def f(x):\
+    if x > 0.5:\
+        return True\
+print(where(data,f))\
+\
+####################################################################################\
+#################Exercise 6:##########################################################\
+####################################################################################\
+# Original "in_range(mymin,mymax)" function:\
+#def in_range(mymin,mymax):\
+#    def testrange(x):\
+#        return x<mymax and x>=mymin\
+#    return testrange\
+\
+# Edited "in_range(mymin,mymax)" function:\
+def in_range(mymin,mymax):\
+    def returnfunc(x):\
+        return x>=mymin and x<=mymax\
+    return returnfunc\
+\
+# Examples:\
+F1=in_range(0,10)\
+F2=in_range(10,20)\
+\
+# Test of in_range\
+print (F1(0), F1(1), F1(10), F1(15), F1(20))\
+print (F2(0), F2(1), F2(10), F2(15), F2(20))\
+\
+print ("Number of Entries passing F1:", len(where(data,F1)))\
+print ("Number of Entries passing F2:", len(where(data,F2)))\
+#################Exercise 6 (part 2):###################################################\
+### BEGIN SOLUTION\
+def Even(x):\
+    return int(x) == x and (x/2) == int(x/2)\
+def Odd(x):\
+    return int(x) == x and (x/2) != int(x/2)\
+def greater(y):\
+    def greaterThanY(x):\
+        return x > y\
+    return greaterThanY\
+def lesser(y):\
+    def lessThanY(x):\
+        return x < y\
+    return lessThanY\
+def equal(y):\
+    def equalTo(x):\
+        return x == y\
+    return equalTo\
+def divisible(y):\
+    def divisibleBy(x):\
+        return int(x / y) == (x / y)\
+    return divisibleBy\
+### END SOLUTION\
+#################Exercise 6 Test:######################################################\
+# Test your solution\
+print("even")\
+print(where([1,2,1.5,2.5,-2,-2.5,1,-1.5],Even))\
+print("odd:")\
+print(where([1,2,1.5,2.5,-2,-2.5,1,-1.5],Odd))\
+print("greater than 1:")\
+print(where([1,2,1.5,2.5,-2,-2.5,1,-1.5],greater(1)))\
+print("less than 1:")\
+print(where([1,2,1.5,2.5,-2,-2.5,1,-1.5],lesser(1)))\
+print("equal to 1:")\
+print(where([1,2,1.5,2.5,-2,-2.5,1,-1.5],equal(1)))\
+print("divisible by 2:")\
+print(where([1,2,3,4,5,6,7,8,9],divisible(2)))\
+print("divisible by 0.5")\
+print(where([0,0.1,0.5,1,2,3,3.5,3.9,4],divisible(0.5)))\
+\
+print("# even")\
+print(len(where([1,2,1.5,2.5,-2,-2.5,1,-1.5],Even)))\
+print("# odd:")\
+print(len(where([1,2,1.5,2.5,-2,-2.5,1,-1.5],Odd)))\
+print("# greater than 1:")\
+print(len(where([1,2,1.5,2.5,-2,-2.5,1,-1.5],greater(1))))\
+print("# less than 1:")\
+print(len(where([1,2,1.5,2.5,-2,-2.5,1,-1.5],lesser(1))))\
+print("# equal to 1:")\
+print(len(where([1,2,1.5,2.5,-2,-2.5,1,-1.5],equal(1))))\
+print("# divisible by 2:")\
+print(len(where([1,2,3,4,5,6,7,8,9],divisible(2))))\
+print("# divisible by 0.5")\
+print(len(where([0,0.1,0.5,1,2,3,3.5,3.9,4],divisible(0.5))))\
+\
+####################################################################################\
+#################Exercise 7:##########################################################\
+####################################################################################\
+\
+### BEGIN SOLUTION\
+print("# even")\
+print(sum(map(lambda x: int(x) == x and (x/2) == int(x/2), [1,2,1.5,2.5,-2,-2.5,1,-1.5])))\
+print("# odd:")\
+print(sum(map(lambda x: int(x) == x and (x/2) != int(x/2), [1,2,1.5,2.5,-2,-2.5,1,-1.5])))\
+print("# greater than 1:")\
+print(sum(map(lambda x: x > 1, [1,2,1.5,2.5,-2,-2.5,1,-1.5])))\
+print("# less than 1:")\
+print(sum(map(lambda x: x < 1, [1,2,1.5,2.5,-2,-2.5,1,-1.5])))\
+print("# equal to 1:")\
+print(sum(map(lambda x: x == 1, [1,2,1.5,2.5,-2,-2.5,1,-1.5])))\
+print("# divisible by 2:")\
+print(sum(map(lambda x: int(x / 2) == (x / 2), [1,2,3,4,5,6,7,8,9])))\
+print("# divisible by 0.5")\
+print(sum(map(lambda x: int(x / 0.5) == (x / 0.5), [0,0.1,0.5,1,2,3,3.5,3.9,4])))\
+### END SOLUTION\
+\
+####################################################################################\
+####MONTECARLOMONTECARLOMONTECARLOMONTECARLOMONTECARLOMONTECARLO####\
+####MONTECARLOMONTECARLOMONTECARLOMONTECARLOMONTECARLOMONTECARLO####\
+####MONTECARLOMONTECARLOMONTECARLOMONTECARLOMONTECARLOMONTECARLO####\
+####MONTECARLOMONTECARLOMONTECARLOMONTECARLOMONTECARLOMONTECARLO####\
+####MONTECARLOMONTECARLOMONTECARLOMONTECARLOMONTECARLOMONTECARLO####\
+##Homework accidentally marks two exercises as 'Exercise 7' so I'm differentiating by MONTE CARLO##\
+####MONTECARLOMONTECARLOMONTECARLOMONTECARLOMONTECARLOMONTECARLO####\
+####MONTECARLOMONTECARLOMONTECARLOMONTECARLOMONTECARLOMONTECARLO####\
+####MONTECARLOMONTECARLOMONTECARLOMONTECARLOMONTECARLOMONTECARLO####\
+####MONTECARLOMONTECARLOMONTECARLOMONTECARLOMONTECARLOMONTECARLO####\
+####MONTECARLOMONTECARLOMONTECARLOMONTECARLOMONTECARLOMONTECARLO####\
+####################################################################################\
+\
+####################################################################################\
+#################Exercise '7':#########################################################\
+####################################################################################\
+\
+# Comments/Notes:\
+#\
+# The directions for Exercise 7 seem incoherent to me, and I'm convinced that this is \
+# a problem of the Monte Carlo questions not being written very carefully rather than \
+# a problem of my reading comprehension.\
+# \
+# Some of the clearest errors I can point to are that:\
+# A) The Gaussian function given for Exercise 8 isn't the correct probability density\
+# function; the exponential should be divided by the product of the standard deviation \
+# and the root of two pi.\
+# B) 68% of a normal distibution is within a standard deviation of the mean, not "one \
+# variance" of it.\
+# \
+# I'm just going to interpret my task as follows:\
+# The "func" argument in "generate_function(func,x_min,x_max,N)" is to be understood as\
+# being a probability density function (PDF) of some sort. From there, the distribution\
+# specified by the PDF must 'be truncated' down to fit on the range specified by the \
+# x_min and x_max arguments, and finally, your output must consist of random values which\
+# are 'sampled' from this truncated distribution, generated by any means necessary.\
+#\
+# With my interpretation in mind, the idea of my solution is as follows: The N argument\
+# will be multiplied by 10, and then 10N unique, random/uniform values will be sampled\
+# from within the range specified by x_min and x_max and stored within a list of sampled\
+# values. From the list of sampled values, a corresponding list of probability densities\
+# will then be computed by use of the "func" argument. From the list of the probability\
+# densities, a third list of sums of the probability densities will be computed, with\
+# the i'th element of this list consisting of the sum of the first I elements of the\
+# list of probability densities. Finally, to sample a random value, random/uniform \
+# numbers between zero and the 10N'th sum of densities will be generated, and the sum\
+# of probability densities that the sampled number is closest to will determine which\
+# of the unique values will be used. \
+\
+def generate_function(func,x_min,x_max,N=1000):\
+    out = list()\
+    ### BEGIN SOLUTION\
+    def rank(lst, val):\
+        for i in range(N * 10):\
+            if lst[i] >= val:\
+                return i\
+        else:\
+            return (N * 10 - 1)\
+    vals = generate_uniform((N*10),x_min,x_max)\
+    densities = list(map(func, vals))\
+    sums = [densities[0]]\
+    for i in range(N * 10 - 1):\
+        sums += [sums[i] + densities[i + 1]]\
+    probeVals = generate_uniform(N,0,sums[N * 10 - 1])\
+    for val in probeVals:\
+        out.append(vals[rank(sums,val)])\
+    ### END SOLUTION\
+    \
+    return out\
+#################Exercise '7' Test:#####################################################\
+# A test function\
+def test_func(x,a=1,b=1):\
+    return abs(a*x+b)\
+\
+test = generate_function(test_func,-10,10,1000)\
+_1,_2=draw_histogram(test,20)\
+\
+####################################################################################\
+#################Exercise 8:##########################################################\
+####################################################################################\
+\
+import math\
+\
+def gaussian(mean, sigma):\
+    def f(x):\
+        return math.exp(-((x-mean)**2)/(2*sigma**2))/math.sqrt(math.pi*sigma)\
+    return f\
+\
+# Example Instantiation\
+g1=gaussian(0,1)\
+g2=gaussian(10,3)\
+\
+# Corrected gaussian probability density function:\
+def gaussian_corrected(mean, sigma):\
+    def f(x):\
+        return math.exp(-((x-mean)**2)/(2*sigma**2))/(sigma*math.sqrt(2*math.pi))\
+    return f\
+\
+g3=gaussian_corrected(0,1)\
+g4=gaussian_corrected(10,3)\
+\
+# Tests:\
+test1 = generate_function(g1,-4,4,1000)\
+test2 = generate_function(g2,-2,22,1000)\
+test3 = generate_function(g3,-4,4,1000)\
+test4 = generate_function(g4,-2,22,1000)\
+# g1 tests:\
+print("Mean of g1:", mean(test1))\
+print("Variance of g1:", variance(test1))\
+_1,_2=draw_histogram(test1,20)\
+# g2 tests:\
+print("Mean of g2:", mean(test2))\
+print("Variance of g2:", variance(test2))\
+_1,_2=draw_histogram(test2,20)\
+# g3 tests:\
+print("Mean of g3:", mean(test3))\
+print("Variance of g3:", variance(test3))\
+_1,_2=draw_histogram(test3,20)\
+# g4 tests:\
+print("Mean of g4:", mean(test4))\
+print("Variance of g4:", variance(test4))\
+_1,_2=draw_histogram(test4,20)\
+# g3 truncation test:\
+test5 = generate_function(g3,-1.5,1.5,1000)\
+print("Mean of truncated g3:", mean(test5))\
+print("Variance of truncated g3:", variance(test5))\
+_1,_2=draw_histogram(test5,20)\
+\
+####################################################################################\
+#################Exercise 9:##########################################################\
+####################################################################################\
+\
+# Note: Due to my use of an unconventional method of making "generate_function(func,x_min,x_max,N=1000)" display\
+# expected behavior, I must also write "integrate(func, x_min, x_max, n_points=1000)" in an unconventional manner\
+# in order to accommodate it such that where() and in_range() are not practical to use. \
+# My basic idea is to use "generate_function(func,x_min,x_max,N=1000)" to generate a distribution from the "func"\
+# argument, transform the data into a list of probability densities, and then take a Riemann sum of the probability\
+# densities.\
+# As extra verification, I show that my solution approximately follows the 68-95-99.7 rule to compensate for my\
+# unexpected methodology making it less clear if this behaves as expected.\
+\
+def integrate(func, x_min, x_max, n_points=1000):\
+    data = sorted(generate_function(func,x_min,x_max,n_points))\
+    densities = list(map(func,data))\
+    integral=0\
+    for i in range(n_points):\
+        if i < (n_points - 1):\
+            integral += densities[i]*(data[i+1]-data[i])\
+        else:\
+            integral += densities[i]*abs(x_max-data[i])\
+    return integral\
+#################Exercise 9 Test:######################################################\
+g1=gaussian_corrected(0,1)\
+oneSig = integrate(g1,-1,1,1000)\
+print(oneSig)\
+twoSig = integrate(g1,-2,2,2000)\
+print(twoSig)\
+threeSig = integrate(g1,-3,3,3000)\
+print(threeSig)\
+}
