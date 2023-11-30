@@ -1,0 +1,624 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2639
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww11520\viewh6360\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 Lab 2 - Aaron Gluch 1001806336 DATA3402-\
+####################################################################################\
+#################Exercise 1:##########################################################\
+####################################################################################\
+\
+# Write you solution here\
+def mat(n,m):\
+    o=list()\
+    for i in range(m):\
+        o.append([0]*n)\
+    return o\
+#################Exercise 1 Test:######################################################\
+# Test your solution here\
+board=mat(8,4)\
+board\
+\
+####################################################################################\
+#################Exercise 2:##########################################################\
+####################################################################################\
+\
+# Write you solution here\
+def board(n,m):\
+    horizon=" ---" * n + "\\n"\
+    vertic="|" + "   |" * n + "\\n"\
+    o=""+horizon\
+    for i in range(m):\
+        o += vertic + horizon\
+    return o\
+#################Exercise 2 Test:######################################################\
+# Test your solution here\
+b = board(3,4)\
+print(b)\
+\
+####################################################################################\
+#################Exercise 3:##########################################################\
+####################################################################################\
+\
+# Write you solution here\
+def board(mat):\
+    n=len(mat[0])\
+    cell_dict = \{0: " ", 1: "X", 2: "O"\}\
+    horizon=" ---" * n + "\\n"\
+    o=""+horizon\
+    vertic="|"\
+    for row in mat:\
+        vertic="|"\
+        for cell in row:\
+            vertic += " " + cell_dict[cell] + " |"\
+        vertic += "\\n"\
+        o += vertic + horizon\
+    return o\
+#################Exercise 3 Test:######################################################\
+# Test your solution here\
+a = mat(4,7)\
+a[1][1] = 2\
+a[3][2] = 1\
+print(board(a))\
+\
+####################################################################################\
+#################Exercise 4:##########################################################\
+####################################################################################\
+\
+# Write you solution here\
+def draw(mat):\
+    s = 0\
+    for row in mat:\
+        for cell in row:\
+            if cell != 0:\
+                s += 1\
+    n = len(mat[0])\
+    m = len(mat)\
+    if s == n * m:\
+        return True\
+    else:\
+        return False\
+def winner(mat):\
+    def tests(loc): #r,c\
+        t1=[[loc[0],loc[1] - 1],loc,[loc[0],loc[1] + 1]]\
+        t2=[[loc[0] + 1,loc[1]],loc,[loc[0] - 1, loc[1]]]\
+        t3=[[loc[0] - 1,loc[1] - 1],loc,[loc[0] + 1,loc[1] + 1]]\
+        t4=[[loc[0] - 1,loc[1] + 1],loc,[loc[0] + 1,loc[1] - 1]]\
+        o=[t1,t2,t3,t4]\
+        return o\
+    def value(mat, loc):\
+        o=0\
+        try:\
+            o=mat[loc[0]][loc[1]]\
+            if loc[0] < 0:\
+                o=-1\
+            if loc[1] < 0:\
+                o=-1\
+        except:\
+            o=-1\
+        finally:\
+            return o\
+    def loc_winner(mat,loc):\
+        t = tests(loc)\
+        o = 0\
+        for i in range(4):\
+            v0 = value(mat,t[i][0])\
+            v1 = value(mat,t[i][1])\
+            v2 = value(mat,t[i][2])\
+            if v0 == v1 and v1 == v2 and v1 != 0:\
+                o = v1\
+        return o\
+    n = len(mat[0])\
+    m = len(mat)\
+    w = -1\
+    for i in range(n):\
+        for j in range(m):\
+            if loc_winner(mat,[j,i]) != 0:\
+                w = loc_winner(mat,[j,i])\
+    return w\
+def state(mat):\
+    s = -2\
+    if draw(mat):\
+        s = 0\
+    else: s = winner(mat)\
+    return s\
+#################Exercise 4 Test:######################################################\
+# Test your solution here\
+d = mat(4,7)\
+d[0] = [1,2,1,2]\
+d[1] = [1,2,1,2]\
+d[2] = [2,1,2,1]\
+d[3] = [2,1,2,1]\
+d[4] = [1,2,1,2]\
+d[5] = [1,2,1,2]\
+d[6] = [2,1,2,1]\
+print(board(d))\
+print(state(d))\
+e = mat(4,7)\
+e[1][1] = 1\
+e[3][3] = 2\
+e[4][2] = 2\
+e[5][1] = 2\
+print(board(e))\
+print(state(e))\
+f = mat(4,7)\
+f[1][1] = 1\
+f[3][3] = 2\
+f[4][2] = 1\
+f[5][1] = 2\
+print(board(f))\
+print(state(f))\
+\
+winner_is_2 = [[2, 2, 0],\
+	[2, 1, 0],\
+	[2, 1, 1]]\
+\
+winner_is_1 = [[1, 2, 0],\
+	[2, 1, 0],\
+	[2, 1, 1]]\
+\
+winner_is_also_1 = [[0, 1, 0],\
+	[2, 1, 0],\
+	[2, 1, 1]]\
+\
+no_winner = [[1, 2, 0],\
+	[2, 1, 0],\
+	[2, 1, 2]]\
+\
+also_no_winner = [[1, 2, 0],\
+	[2, 1, 0],\
+	[2, 1, 0]]\
+\
+no_winner_draw = [[1,2,1],\
+        [1,2,1],\
+        [2,1,2]]\
+\
+print(state(winner_is_2))\
+print(state(winner_is_1))\
+print(state(winner_is_also_1))\
+print(state(no_winner))\
+print(state(also_no_winner))\
+print(state(no_winner_draw))\
+\
+####################################################################################\
+#################Exercise 5:##########################################################\
+####################################################################################\
+\
+# Write you solution here\
+def move(mat,player,loc): #loc should be in the format [row,column] ; coordinates start at 1 instead of 0.\
+    n = len(mat[0])\
+    m = len(mat)\
+    x = loc[1] - 1\
+    y = loc[0] - 1\
+    if x < 0 or x >= n or y < 0 or y >= m:\
+        return False\
+    else:\
+        if mat[y][x] != 0:\
+            return False\
+        else:\
+            mat[y][x] = player\
+            return True\
+#################Exercise 5 Test:######################################################\
+# Test your solution here\
+e = mat(7,4)\
+print(move(e,2,[4,3]))\
+print(move(e,1,[4,3]))\
+print(move(e,2,[5,3]))\
+print(move(e,2,[4,8]))\
+print(move(e,2,[0,3]))\
+print(move(e,2,[4,0]))\
+\
+####################################################################################\
+#################Exercise 6:##########################################################\
+####################################################################################\
+\
+# Write you solution here\
+\
+#Comments:\
+#I'm assuming that the directions meant to say "Modify Exercise 3" rather than "Modify Exercise 4".\
+#My modified code here can accept as input a matrix with an infinite number of rows and a \
+#theoretically-infinite number of columns, but in practice, it will mess up if the matrix has too many \
+#columns because--what should be one line--spills over to subsequent lines. Still, in theory, it would \
+#work correctly if notebook allowed for horizontal scrolling rather than just vertical scrolling such that \
+#a line could go on infinitely, and if the output were copied to another text display program which does \
+#support sideways scrolling, it would work correctly. I don't know how to automatically detect the width \
+#of the user console, so I didn't add any support for wide boards being broken up into multiple tall boards.\
+#Given a >26-column board, columns will be labeled with more than one letter which are to be read \
+#top-down e.g. the second column of a 30-column board should be read as column "AB" rather than \
+#column "BA", the third column of a 680-column board should be read as column "AAC" rather than \
+#column "CAA", etc.\
+\
+import math\
+def board(mat):\
+    n=len(mat[0])\
+    m=len(mat)\
+    cd=1\
+    rd=1\
+    while (26 ** cd) < n:\
+        cd += 1\
+    while (10 ** rd) <= m:\
+        rd += 1\
+    cols = list()\
+    for i in range(n):\
+        v = i\
+        col = []\
+        for j in range(cd):\
+            if v == 0 and j != 0:\
+                col += [0]\
+            else:\
+                col += [int(v % 26)]\
+                v = (v - (v % 26)) / 26\
+        col = col[::-1]\
+        cols.append(col)\
+    def pseudodict(key): #pseudodict(i) returns the (i + 1)'th letter of the alphabet\
+        a = ["A","B","C","D","E","F","G","H","I"]\
+        a += ["J","K","L","M","N","O","P","Q","R"]\
+        a += ["S","T","U","V","W","X","Y","Z"]\
+        if int(key) != key:\
+            return "error: key must be integer in alphabet(key)"\
+        elif key < -1:\
+            return "error: key must be >= -1 in alphabet(key)"\
+        elif key > 25:\
+            return "error: key must be <= 25 in alphabet(key)"\
+        elif key == -1:\
+            return " "\
+        else:\
+            return a[key]\
+    o=""\
+    for i in range(cd):\
+        o += " " * rd\
+        for j in range(n):\
+            if cd == 1:\
+                o += "   "\
+            else:\
+                o += " | "\
+            o += pseudodict(cols[j][i])\
+        if cd > 1:\
+            o += " |"\
+        o += "\\n"\
+    horizon=" " * rd + " " + " ---" * n + "\\n"\
+    o += horizon\
+    cell_dict = \{0: " ", 1: "X", 2: "O"\}\
+    for i in range(m):\
+        row = mat[i]\
+        space = len(str(m)) - len(str(i + 1))\
+        vertic = " " * space + str(i + 1)\
+        for cell in row:\
+            vertic += " | " + cell_dict[cell]\
+        vertic += " |\\n"\
+        o += vertic + horizon\
+    return o\
+#################Exercise 6 Test:######################################################\
+# Test your solution here\
+d = mat(3,9)\
+print(board(d))\
+e = mat(30,9)\
+print(board(e))\
+f = mat(3,30)\
+print(board(f))\
+g = mat(30,30)\
+print(board(g))\
+h = mat(30,100)\
+print(board(h))\
+\
+####################################################################################\
+#################Exercise 7:##########################################################\
+####################################################################################\
+\
+# Write you solution here\
+def place(mat,player,loc): #loc should be a string in the format "ABCDEFG1234567"\
+    location = []\
+    def locStringValidity(location):\
+        # This function returns a 4-element array. If the argument is a valid input, the 3rd element is \
+        # set to 1, otherwise, the first three elements are set to 0, and the 4th element is set to an \
+        # error message. \
+        # If the argument is a valid input, then the 1st element is set to the column number implied by\
+        # the argument, and the second element is set to row number implied by the argument.\
+        if str(location) != location:\
+            return [0,0,0,"error: locStringValidity(location) argument must be string."]\
+        loc = location.upper()\
+        if len(loc) < 2:\
+            return [0,0,0,"error: locStringValidity(location) argument length must be greater than 2."]\
+        def charHandler(character):\
+            a = ["0","1","2","3","4","5","6","7","8","9"]\
+            a += ["A","B","C","D","E","F","G","H","I"]\
+            a += ["J","K","L","M","N","O","P","Q","R"]\
+            a += ["S","T","U","V","W","X","Y","Z"]\
+            for i in range(37):\
+                if i == 36:\
+                    return "!"\
+                if character == a[i]:\
+                    o = a[i]\
+                    if i < 11:\
+                        o = i\
+                    break\
+            return o\
+        for i in range(len(loc)):\
+            if "!" == charHandler(loc[i]):\
+                return [0,0,0,"error: locStringValidity(location) argument contains illegal character"]\
+        def isInt(arg):\
+            for i in range(10):\
+                if i == charHandler(arg):\
+                    return True\
+            return False\
+        def isChar(arg):\
+            if isInt(arg):\
+                return False\
+            elif "!" == charHandler(arg):\
+                return False\
+            else:\
+                return True\
+        def pseudoDict(character):\
+            a = ["A","B","C","D","E","F","G","H","I"]\
+            a += ["J","K","L","M","N","O","P","Q","R"]\
+            a += ["S","T","U","V","W","X","Y","Z"]\
+            for i in range(26):\
+                if a[i] == character:\
+                    return i\
+        nStart = 0\
+        for i in range(len(loc)):\
+            if isInt(loc[i]):\
+                nStart = i\
+                break\
+        if nStart == 0:\
+            return [0,0,0,"error: locStringValidity(location) number must come after characters."]\
+        nCol = 0\
+        nRow = 0\
+        for i in range(len(loc)):\
+            if i >= nStart:\
+                if isInt(loc[i]):\
+                    nRow += charHandler(loc[i])\
+                    if (i + 1) != len(loc):\
+                        nRow = nRow * 10\
+                else:\
+                    return [0,0,0,"error: locStringValidity(location) characters cannot come after numbers."]\
+            else:\
+                if isChar(loc[i]):\
+                    nCol += pseudoDict(loc[i])\
+                    if (i + 1) != nStart:\
+                        nCol = nCol * 26\
+                else:\
+                    return [0,0,0,"error: locStringValidity(location) Idk how this error could possibly be triggered."]\
+        nCol += 1\
+        o = [nCol,nRow,1,"Status: Success"]\
+        return o\
+    ### End of "locStringValidity(location)" function ###\
+    o = locStringValidity(loc)\
+    if o[2] == 0:\
+        return False\
+    location = [o[1],o[0]]\
+    o = move(mat,player,location)\
+    return o\
+#################Exercise 7 Test:######################################################\
+# Test your solution here\
+e = mat(7,4)\
+print(board(e))\
+print(place(e,2,"B3"))\
+print(board(e))\
+\
+####################################################################################\
+#################Exercise 8:##########################################################\
+####################################################################################\
+\
+# Write you solution here\
+def turn(mat, player):\
+    cond = 0\
+    while cond == 0:\
+        location = input()\
+        if place(mat,player,location):\
+            cond = 1\
+        else:\
+            print("\\nInvalid input. Please try again:\\n")\
+#################Exercise 8 Test:######################################################\
+# Test your solution here\
+e = mat(7,4)\
+print(board(e))\
+turn(e,2)\
+print(board(e))\
+\
+####################################################################################\
+#################Exercise 9:##########################################################\
+####################################################################################\
+\
+# Write you solution here\
+def TicTacToe(numberOfColumns,numberOfRows):\
+    print("Tic Tac Toe\\nX = player 1, O = player 2.\\n")\
+    ncol = numberOfColumns\
+    nrow = numberOfRows\
+    matrix = mat(ncol,nrow)\
+    gameState = -1\
+    currentPlayer = 1\
+    while gameState == -1:\
+        print("Player " + str(currentPlayer) + "'s turn:")\
+        print(board(matrix))\
+        turn(matrix, currentPlayer)\
+        if currentPlayer == 1:\
+            currentPlayer = 2\
+        else:\
+            currentPlayer = 1\
+        gameState = state(matrix)\
+    print(board(matrix))\
+    if gameState == 0:\
+        print("Draw.")\
+    else:\
+        print("Player " + str(gameState) + " wins!")\
+#################Exercise 9 Test:######################################################\
+# Test your solution here\
+TicTacToe(3,4)\
+\
+####################################################################################\
+#################Exercise 10:#########################################################\
+####################################################################################\
+\
+# Test your solution here\
+TicTacToe(5,5)\
+\
+####################################################################################\
+#################Exercise 11:#########################################################\
+####################################################################################\
+\
+# Write you solution here\
+def decide(inputMatrix, player): #decides optimal move for "player" to make, assuming the other took their turn\
+    n = len(inputMatrix[0])\
+    m = len(inputMatrix)\
+    mat = []\
+    for i in range(m):\
+        row = []\
+        for j in range(n):\
+            row += [inputMatrix[i][j]]\
+        mat += [row]\
+    def f(inMat):\
+        o = []\
+        for i in range(m):\
+            row = []\
+            for j in range(n):\
+                row += [inMat[i][j]]\
+            o += [row]\
+        return o\
+    mat = f(inputMatrix)\
+    ###returns the game state that would result from moving player to loc:\
+    def hypothetical(mtrx, player, loc): #loc = [r,c]\
+        matrix = mtrx\
+        status = state(matrix)\
+        if move(matrix,player,loc):\
+            status = state(matrix)\
+        return status\
+    ###Makes decide() return loc if moving at loc makes player win:\
+    for i in range(n): \
+        x = i + 1\
+        for j in range(m):\
+            y = j + 1\
+            if hypothetical(f(mat),player,[y,x]) == player:\
+                #print("debug1")\
+                return [y,x]\
+    ###Makes decide() return loc if opponent moving at loc makes player lose:\
+    player2 = 1\
+    if player == 1:\
+        player2 = 2\
+    for i in range(n):\
+        x = i + 1\
+        for j in range(m):\
+            y = j + 1\
+            if hypothetical(f(mat),player2,[y,x]) == player2:\
+                #print("debug2")\
+                return [y,x]\
+    ###Suppose player had two turns in a row; if there is a way to make the first move such that\
+    ###the scenario results in at least two ways that the second move could result in victory for\
+    ###the player, then this next block of logic will make decide() return a loc at which they could\
+    ###make a first move which would result in such an outcome under such a scenario:\
+    for i in range(n):\
+        x1 = i + 1\
+        for j in range(m):\
+            y1 = j + 1\
+            nPaths = 0\
+            mtrx = f(mat)\
+            move(mtrx,player,[y1,x1])\
+            for k in range(n):\
+                x2 = k + 1\
+                for l in range(m):\
+                    y2 = l + 1\
+                    if hypothetical(f(mtrx),player,[y2,x2]) == player:\
+                        nPaths += 1\
+            if nPaths > 1:\
+                #print("debug3")\
+                return [y1,x1]\
+    ###Suppose the opponent had two turns in a row; if there were a way for them to make the first \
+    ###move such that the scenario results in at least two ways that their second move could result \
+    ###in the player's defeat, then this next block of logic will make decide() return a loc at which \
+    ###the opponent could make a first move to achieve such an outcome under such a scenario:\
+    for i in range(n):\
+        x1 = i + 1\
+        for j in range(m):\
+            y1 = j + 1\
+            nPaths = 0\
+            mtrx = f(mat)\
+            move(mtrx,player2,[y1,x1])\
+            for k in range(n):\
+                x2 = k + 1\
+                for l in range(m):\
+                    y2 = l + 1\
+                    if hypothetical(f(mtrx),player2,[y2,x2]) == player2:\
+                        nPaths += 1\
+            if nPaths > 1:\
+                #print("debug4")\
+                return [y1,x1]\
+    ###This next block of logic will return the location of the empty space which has the most empty\
+    ###neighbors, or otherwise an arbitrary location which ties:\
+    def value(matrix, loc):\
+        o=0\
+        try:\
+            o=matrix[loc[0]][loc[1]]\
+            if loc[0] < 0:\
+                o=-1\
+            if loc[1] < 0:\
+                o=-1\
+        except:\
+            o=-1\
+        finally:\
+            return o\
+    def neighbors(matrix,loc):\
+        L0=loc\
+        L1=[loc[0] - 1,loc[1]]\
+        L2=[loc[0] - 1,loc[1] - 1]\
+        L3=[loc[0] - 1,loc[1] + 1]\
+        L4=[loc[0] + 1,loc[1]]\
+        L5=[loc[0] + 1,loc[1] - 1]\
+        L6=[loc[0] + 1,loc[1] + 1]\
+        L7=[loc[0],loc[1] - 1]\
+        L8=[loc[0],loc[1] + 1]\
+        locs=[L0,L1,L2,L3,L4,L5,L6,L7,L8]\
+        contents = []\
+        for L in locs:\
+            v = value(matrix,L)\
+            if v == 0:\
+                val = 1\
+            contents += [val]\
+            val = 0\
+        return contents\
+    highest=0\
+    x = 0\
+    y = 0\
+    for i in range(n):\
+        for j in range(m):\
+            vals = neighbors(f(mat), [j,i])\
+            if vals[0] == 1 and sum(vals) > highest:\
+                highest = sum(vals)\
+                x = i\
+                y = j\
+    x += 1\
+    y += 1\
+    #print("debug5")\
+    return [y,x]\
+\
+def TicTacToeBot(numberOfColumns,numberOfRows,botPlayerNumber):\
+    print("Tic Tac Toe\\nX = player 1, O = player 2.\\n")\
+    ncol = numberOfColumns\
+    nrow = numberOfRows\
+    matrix = mat(ncol,nrow)\
+    gameState = -1\
+    currentPlayer = 1\
+    while gameState == -1:\
+        print(board(matrix))\
+        print("Player " + str(currentPlayer) + "'s turn:")\
+        if currentPlayer == botPlayerNumber:\
+            location = decide(matrix,currentPlayer)\
+            move(matrix,currentPlayer,location)\
+        else:\
+            turn(matrix, currentPlayer)\
+        if currentPlayer == 1:\
+            currentPlayer = 2\
+        else:\
+            currentPlayer = 1\
+        gameState = state(matrix)\
+    print(board(matrix))\
+    if gameState == 0:\
+        print("Draw.")\
+    else:\
+        print("Player " + str(gameState) + " wins!")\
+#################Exercise 11 Test:#####################################################\
+# Test your solution here\
+TicTacToeBot(5,5,2)\
+\
+}
